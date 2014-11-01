@@ -3,9 +3,7 @@
 
 #include <stdint.h>
 
-//#define BLOCK_SIZE 4096;
-static const uint32_t BLOCK_SIZE = 4096;
-// error caused in get block capacity function with define???
+#define		BUFFER_BLOCK_SIZE		4096;
 
 typedef struct {
 	uint8_t* raw;
@@ -13,12 +11,19 @@ typedef struct {
 	uint32_t size; // amount of data in the buffer;
 } buffer_t;
 
-void buffer_new(buffer_t* buffer);
-void buffer_new_with_capacity(buffer_t* buffer, uint32_t capacity);
-uint32_t buffer_get_block_capacity(uint32_t capacity);
-int buffer_resize(buffer_t* buffer, uint32_t capacity);
-void buffer_clear(buffer_t* buffer, uint32_t index);
+void 		buffer_init(buffer_t *buffer);
+void 		buffer_init_with_capacity(buffer_t *buffer, uint32_t capacity);
+uint32_t 	buffer_get_block_capacity(uint32_t capacity);
+int 		buffer_resize(buffer_t *buffer, uint32_t capacity);
+void 		buffer_clear(buffer_t *buffer, uint32_t index);
 
-void buffer_write_uint8(buffer_t* buffer, uint8_t value);
+void 		buffer_write_uint8(buffer_t *buffer, uint8_t value);
+void 		buffer_write_buffer(buffer_t *dst, buffer_t *src);
+void 		buffer_write_raw(buffer_t *buffer, void *data, uint32_t size);
+
+void 		buffer_clean(buffer_t *buffer);
+void 		buffer_free(buffer_t *buffer);
 
 #endif
+
+// TODO: use macros instead of tones of buffer functions?
